@@ -1,5 +1,5 @@
 # ExxonMobil-UFPR_AKHub-Time_Series_Forecasting_Project
-This is part of a project being developed by UFPR students in partnership with Exxon Mobil. This project mains to forecast time-series values, in special, base-oils.
+This is part of a project being developed by UFPR students in partnership with Exxon Mobil. This project aims to forecast time-series values, in special, base-oils.
 For this we've made an exploratory analisys of the series and pre-processed the data to fit classical statistics models like ARIMA and Exponential Smoothing.
 Then, we've made an sliding windows algorithm to validade the results, saving the scores, and relevant data in an excel file.
 
