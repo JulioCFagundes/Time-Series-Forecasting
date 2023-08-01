@@ -4,11 +4,7 @@ import pandas as pd
 from math import sqrt
 import os
 from sklearn.linear_model import LinearRegression
-<<<<<<< HEAD
 import statistics as st
-=======
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
-
 
 class TimeSeries:
     """
@@ -52,11 +48,7 @@ class TimeSeries:
         Saves the model's metadata and performance metrics to a CSV file.
     """
 
-<<<<<<< HEAD
     def __init__(self, name, series, train_window_size, test_window_size, frequency, fillna, value_description):
-=======
-    def __init__(self, name, series, train_window_size, test_window_size, frequency, fillna):
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
         """
         Parameters
         ----------
@@ -72,11 +64,8 @@ class TimeSeries:
                 Frequency of data observations: monthly, weekly, daily etc
             fillna: str
                 Method used to fill NaN values
-<<<<<<< HEAD
             value_description: str
                 Midpoint, value high and value low
-=======
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
         """
         self.df = series
         self.frequency = frequency
@@ -88,11 +77,7 @@ class TimeSeries:
         self.window = train_window_size + test_window_size
         self.n_predictions = len(series) - self.window + 1
         self.fillna = fillna
-<<<<<<< HEAD
         self.value_description = value_description
-=======
-
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
     def create_windows(self):
         """
         Creates training and prediction windows from the series.
@@ -265,41 +250,6 @@ class TimeSeries:
         mase = self.mae / mae_naive
         return mase
     
-<<<<<<< HEAD
-=======
-    def evaluate_model(self):
-        """
-        Evaluates the model's performance by calculating several metrics.
-        """
-        actuals = self.test_windows
-        forecast = self.predictions
-        self.residuals = actuals - forecast
-        
-        self.mae = round(self.mean_absolute_error(),3)
-        self.mse = round(self.mean_squared_error(),3)
-        self.rmse = round(self.root_mean_squared_error(),3)
-        self.rmse_1st = round(self.error_1st_prediction()[0],3)
-        self.mape_1st = round(self.error_1st_prediction()[1],3)
-        self.mae_1st = round(self.error_1st_prediction()[2],3)
-        self.mse_1st = round(self.error_1st_prediction()[3],3)
-        self.rmse_2nd = round(self.error_2nd_prediction()[0],3)
-        self.mape_2nd = round(self.error_2nd_prediction()[1],3)
-        self.mae_2nd = round(self.error_2nd_prediction()[2],3)
-        self.mse_2nd = round(self.error_2nd_prediction()[3],3)
-        self.rmse_3rd = round(self.error_3rd_prediction()[0],3)
-        self.mape_3rd = round(self.error_3rd_prediction()[1],3)
-        self.mae_3rd = round(self.error_3rd_prediction()[2],3)
-        self.mse_3rd = round(self.error_3rd_prediction()[3],3)
-        self.mape = round(self.mean_absolute_percentage_error(),3)
-        self.mase = round(self.mean_absolute_scaled_error(),3)
-        self.mda = round(self.mean_directional_accuracy(),3)
-        self.regression_mda  = self.linear_regression()
-
-        return {"MAE": self.mae, "MSE": self.mse, "RMSE": self.rmse,
-                "MAE_1st": self.mae_1st,"MSE_1st": self.mse_1st,  "RMSE_1st": self.rmse_1st, "MAPE_1st": self.mape_1st,  "MAE_2nd": self.mae_2nd,"MSE_2nd": self.mse_2nd, "RMSE_2nd": self.rmse_2nd,"MAPE_2nd": self.mape_2nd,"MAE_3rd": self.mae_3rd,"MSE_3rd": self.mse_3rd,"RMSE_3rd": self.rmse_3rd, "MAPE_3rd": self.mape_3rd,
-                "MAPE": self.mape, "MASE": self.mase, "MDA": self.mda}    
-
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
 
     def linear_regression(self):
         """
@@ -339,7 +289,6 @@ class TimeSeries:
         Forecast_tendency_sign = np.sign(Forescast_tendency)
         regression_mda = np.mean(Real_tendency_sign == Forecast_tendency_sign)
         return regression_mda
-<<<<<<< HEAD
   
 
 
@@ -465,9 +414,6 @@ class TimeSeries:
         }  
 
 
-=======
- 
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
     def save_data(self, model, filepath='models_results.csv'):
         """
         Saves the model's metadata and performance metrics to a CSV file.
@@ -502,7 +448,6 @@ class TimeSeries:
             mape_3rd = [self.mape_3rd],
             mda = [self.mda],
             regression_mda = [self.regression_mda],
-<<<<<<< HEAD
             upper_confidence_interval_95percent_1st= [self.upper_confidence_interval_95percent_1st],
             lower_confidence_interval_95percent_1st= [self.lower_confidence_interval_95percent_1st],
             upper_confidence_interval_99percent_1st= [self.upper_confidence_interval_99percent_1st],
@@ -515,8 +460,6 @@ class TimeSeries:
             lower_confidence_interval_95percent_3rd= [self.lower_confidence_interval_95percent_3rd],
             upper_confidence_interval_99percent_3rd= [self.upper_confidence_interval_99percent_3rd],
             lower_confidence_interval_99percent_3rd= [self.lower_confidence_interval_99percent_3rd],
-=======
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
             fillna = [self.fillna],
             timestamp=[now]
         )

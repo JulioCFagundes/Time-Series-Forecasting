@@ -2,8 +2,12 @@
 import numpy as np
 import pandas as pd
 
+## Preparing time windows and enviroment to receive the forecasts
+from models import UFPR_Models
+from utility import TimeSeries
 
 
+#%%
 
 
 
@@ -13,6 +17,7 @@ dataset_name: this will be the name displayed on the excel file for this dataset
 save_path: path where excel file with the results will be saved
 freq: frequency of the observations: i.e. Weekly, Daily, Monthly
 '''
+
 
 dataset_path =  '../Data_Pre_Processing/treated_datasets/new_argus_series.xlsx'
 save_path= '../../closed_datasets/Closed_results/TESTS_RESULTS.csv'
@@ -29,9 +34,6 @@ columns = dataset.columns
 
 
 
-## Preparing time windows and enviroment to receive the forecasts
-from utility import TimeSeries
-from models import UFPR_Models
 
 ## First, we want to forecast midpoint with monthly frequency
 dataset = dataset[dataset.value_description == 'midpoint']
@@ -73,13 +75,23 @@ for product in products:
 MAKING ONE-CODE CALL FOR ALL MODELS
 '''
 
+#%% 
+
+df = pd.read_csv(r'C:\Users\Work\Desktop\Julio\Exxon\Códigos ARGUS\Exxon_UFPR_project-Time_Series_Forecast\Open_datasets\Crude_Oil.csv')
+df.set_index('Date', inplace=True)
+df.index = pd.to_datetime(df.index)
+series = df.resample('M').agg('mean')
+series.head()
+
+#%%
+
 
 for product_name in products:
     dataset_name = product_name
     serie = dataset[dataset.CODE_NAME == product_name]
     serie = serie[['OPR_DATE', 'VALUE']]
     serie.set_index('OPR_DATE', inplace=True)
-    time_series = TimeSeries(name=dataset_name, series=serie['VALUE'], train_window_size=24, test_window_size=3, frequency=freq, fillna=fillnamethod)
+    time_series = TimeSeries(name='crude_oil', series=series, train_window_size=24, test_window_size=3, frequency=freq, fillna=fillnamethod)
     time_series.create_windows()
 
 
@@ -194,7 +206,7 @@ for product_name in products:
                 ##saving results
                 time_series.save_data(model=f'Arima({p};{d};{q})',filepath=save_path)
 
-
+    break
 
 
 #%%
