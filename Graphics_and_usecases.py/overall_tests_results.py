@@ -19,30 +19,12 @@ df.head()
 plot_df = sorted_df[sorted_df['rmse_1st'] <=400]
 sns.barplot(y=plot_df['rmse_1st'], x=plot_df.index)
 plt.xticks(rotation=70)
+plt.title('Overall Results')
+plt.show()
 
-#%%
-
-######### top 10
-plot_df = df[df.index.isin([
-'Arima(2,3,4)',
-'Arima(2,1,4)',
-'Arima(0,4,4)',
-'Arima(2,3,0)',
-'Arima(1,3,0)',
-'Arima(1,3,4)',
-'Arima(0,0,2)',
-'Arima(0,5,3)',
-'Arima(0,4,1)',
-'Arima(0,5,4)',
-]
-
-)]
-
-sns.barplot(y=plot_df['rmse_1st'], x=plot_df.index)
-plt.xticks(rotation=70)
-#%%
-sorted_df.iloc[:14]
-
+sns.boxplot(y=plot_df['rmse_1st'], x=plot_df.name)
+plt.title('Boxplot: Overall Results ')
+plt.show()
 #%%
 best_ten_df = sorted_df[sorted_df.index.isin([
 'Arima(2,0,0)',
@@ -61,12 +43,12 @@ best_ten_df = sorted_df[sorted_df.index.isin([
 
 sns.barplot(y=best_ten_df['rmse_1st'], x=best_ten_df.index)
 plt.xticks(rotation=70)
+plt.title('Best 10 Models')
+plt.show()
 
+sns.boxplot(y=best_ten_df['rmse_1st'], x=best_ten_df.name)
+plt.title('Boxplot: Best 10 Model')
+plt.show()
 
 
 #%% for crude_oil
-
-df = pd.read_csv(r'C:\Users\Work\Desktop\Julio\Exxon\Códigos ARGUS\Exxon_UFPR_project-Time_Series_Forecast\Open_datasets\Crude_Oil.csv')
-
-
-df.head()

@@ -3,9 +3,8 @@ import numpy as np
 import pandas as pd
 
 ## Preparing time windows and enviroment to receive the forecasts
-from models import UFPR_Models
 from utility import TimeSeries
-
+from models import UFPR_Models
 
 #%%
 
@@ -22,7 +21,7 @@ freq: frequency of the observations: i.e. Weekly, Daily, Monthly
 dataset_path =  '../Data_Pre_Processing/treated_datasets/new_argus_series.xlsx'
 save_path= '../../closed_datasets/Closed_results/TESTS_RESULTS.csv'
 freq = 'Monthly'
-
+value_description = 'pricing'
 ## Calling the dataset
 dataset = pd.read_csv(dataset_path)
 
@@ -91,7 +90,7 @@ for product_name in products:
     serie = dataset[dataset.CODE_NAME == product_name]
     serie = serie[['OPR_DATE', 'VALUE']]
     serie.set_index('OPR_DATE', inplace=True)
-    time_series = TimeSeries(name='crude_oil', series=series, train_window_size=24, test_window_size=3, frequency=freq, fillna=fillnamethod)
+    time_series = TimeSeries(name='crude_oil', series=series.value, train_window_size=24, test_window_size=3, frequency=freq, fillna=fillnamethod, value_description=value_description)
     time_series.create_windows()
 
 
