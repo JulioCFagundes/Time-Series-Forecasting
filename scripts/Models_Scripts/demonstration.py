@@ -15,11 +15,7 @@ freq: frequency of the observations: i.e. Weekly, Daily, Monthly
 '''
 
 dataset_path =  '../Data_Pre_Processing/treated_datasets/new_argus_series.xlsx'
-<<<<<<< HEAD
 save_path= '../../closed_datasets/Closed_results/TESTS_RESULTS.csv'
-=======
-save_path= '../../closed_datasets/Closed_results/new_argus_series_scores.csv'
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
 freq = 'Monthly'
 
 ## Calling the dataset
@@ -28,10 +24,6 @@ dataset = pd.read_csv(dataset_path)
 columns = dataset.columns
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
 #%%
 ## Setting dataframes with date and values of the series
 
@@ -42,22 +34,13 @@ from utility import TimeSeries
 from models import UFPR_Models
 
 ## First, we want to forecast midpoint with monthly frequency
-<<<<<<< HEAD
-value_description = 'midpoint'
-dataset = dataset[dataset.value_description == value_description]
-dataset = dataset[dataset.Frequency == 'M']
-train_window_size = 24
-test_window_size = 3
-=======
 dataset = dataset[dataset.value_description == 'midpoint']
 dataset = dataset[dataset.Frequency == 'M']
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
 
 ## name of the base oils
 products = dataset['CODE_NAME'].unique()
 products
 
-<<<<<<< HEAD
 
 
 
@@ -72,7 +55,6 @@ for product in products:
 #%%
 dataset
 #%%
-=======
 #%%
 dataset[dataset.CODE_NAME == products[0]]
 
@@ -87,7 +69,6 @@ for product in products:
 
 #%%
 
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
 '''
 MAKING ONE-CODE CALL FOR ALL MODELS
 '''
@@ -98,11 +79,7 @@ for product_name in products:
     serie = dataset[dataset.CODE_NAME == product_name]
     serie = serie[['OPR_DATE', 'VALUE']]
     serie.set_index('OPR_DATE', inplace=True)
-<<<<<<< HEAD
-    time_series = TimeSeries(name=dataset_name, series=serie['VALUE'], train_window_size=train_window_size, test_window_size=test_window_size, frequency=freq, fillna=fillnamethod, value_description = value_description)
-=======
     time_series = TimeSeries(name=dataset_name, series=serie['VALUE'], train_window_size=24, test_window_size=3, frequency=freq, fillna=fillnamethod)
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
     time_series.create_windows()
 
 
@@ -222,9 +199,3 @@ for product_name in products:
 
 #%%
 
-<<<<<<< HEAD
-print(product_name)
-dataset[dataset.CODE_NAME == 'Base oil Group I SN 650 Pemex posted Salamanca $/t']
-=======
-
->>>>>>> fee16cd45c8185069acf949c1dc6c7249a1b5d6a
