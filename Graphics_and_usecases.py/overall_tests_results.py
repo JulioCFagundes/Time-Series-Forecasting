@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 #%%
 
 df = pd.read_csv(r'C:\Users\Work\Desktop\Julio\Exxon\Códigos ARGUS\Exxon_UFPR_project-Time_Series_Forecast\closed_datasets\Closed_results\TESTS_RESULTS.csv')
-df = df[df.name == 'Base oil Group 1 SN 500 Asia-Pacific month']
+df = df[df.name == 'crude_oil']
 df.set_index('model', inplace=True)
 sorted_df = df.sort_values(by='rmse_1st', ascending=True)
 
