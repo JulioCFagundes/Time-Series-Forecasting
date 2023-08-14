@@ -2,11 +2,11 @@
 #%%
 import numpy as np
 import pandas as pd
-from scripts.Models_Scripts.utility import TimeSeries
+from models import UFPR_Models
+from utility import TimeSeries
 
 # from Classical_Statistics_Models.classical_statistics_models import UFPR_Models
 # from Machine_Learning_Models.RBF_model import rbf_model
-
 #%%
 
 dataset_path =  r'C:\Users\User\Desktop\Exxon\Forecasting ARGUS base\ExxonMobil-UFPR_AKHub-Time_Series_Forecasting_Project-main\ExxonMobil-UFPR_AKHub-Time_Series_Forecasting_Project-main\Open_datasets\Crude_Oil.csv'
