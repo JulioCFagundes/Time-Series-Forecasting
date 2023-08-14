@@ -1,7 +1,6 @@
 #%%
 import numpy as np
 import pandas as pd
-
 ## Preparing time windows and enviroment to receive the forecasts
 from utility import TimeSeries
 from models import UFPR_Models
