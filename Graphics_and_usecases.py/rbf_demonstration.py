@@ -2,7 +2,7 @@
 #%%
 import numpy as np
 import pandas as pd
-from utility import TimeSeries
+from scripts.Models_Scripts.utility import TimeSeries
 
 # from Classical_Statistics_Models.classical_statistics_models import UFPR_Models
 # from Machine_Learning_Models.RBF_model import rbf_model
