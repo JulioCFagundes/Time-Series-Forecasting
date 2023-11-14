@@ -33,13 +33,12 @@ class UFPR_Models:
     frequency: str
         Groups the serie by month or week ('m' for month and 'w' for week)
     """
-    def __init__(self,  evaluate_params: tuple=None, train_base:pd.Series = None, train_base_index: list = None) -> None:
+    def __init__(self, train_base:pd.Series = None, train_base_index: list = None) -> None:
         self.train_base = train_base
-        self.evaluate_params = evaluate_params
         self.train_base_index = train_base_index
         
 
-    def Evaluate_Arima(self) -> dict:
+    def Evaluate_Arima(self, evaluate_params) -> dict:
         warnings.filterwarnings("ignore")
 
 
@@ -48,7 +47,7 @@ class UFPR_Models:
         self.fitting = list()
 
             
-        model = ARIMA(self.train_base, order=self.evaluate_params)
+        model = ARIMA(self.train_base.reshape(-1,1), order=evaluate_params)
         model_fit = model.fit()
 
         self.predictions.append(model_fit.forecast(3)[:3])
@@ -57,10 +56,10 @@ class UFPR_Models:
 
     def Simple_Exponential_Smoothing(self):
         # Ajustar modelo de suavização exponencial simples
-        ses_model = ExponentialSmoothing(self.train_base).fit()
+        ses_model = ExponentialSmoothing(self.train_base).fit(smoothing_level=0.2)
 
         # Fazer previsões
-        self.ses_forecast = ses_model.forecast(steps=3)
+        self.ses_forecast = ses_model.forecast(3)
 
     def Linear_Regression(self):
         time = np.arange(len(self.train_base))
@@ -74,13 +73,13 @@ class UFPR_Models:
         
     def Holt_Exponential_Smoothing(self, trend="add"):
         holt_model = ExponentialSmoothing(self.train_base, trend=trend).fit()
-        holt_forecast = holt_model.forecast(steps=3)
+        holt_forecast = holt_model.forecast(3)
         self.holt_forecast = holt_forecast
 
     def Holt_Winters(self, seasonal_decompose='add', freq=12):
         Series = pd.Series(data = self.train_base, index=self.train_base_index)
         # Series.index = pd.date_range(start=f'{self.train_base_index[0]}', end=f'{self.train_base_index[-1]}', freq="M")
         hw_model = ExponentialSmoothing(Series, seasonal=seasonal_decompose, seasonal_periods=freq).fit()
-        hw_forecast = hw_model.forecast(steps=3)
+        hw_forecast = hw_model.forecast(3)
         self.holt_winters_forecast = hw_forecast
 

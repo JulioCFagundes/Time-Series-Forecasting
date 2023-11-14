@@ -5,7 +5,7 @@ from math import sqrt
 import os
 from sklearn.linear_model import LinearRegression
 import statistics as st
-
+from math import floor
 
 class TimeSeries:
     """
@@ -49,7 +49,7 @@ class TimeSeries:
         Saves the model's metadata and performance metrics to a CSV file.
     """
 
-    def __init__(self, name, series, train_window_size, test_window_size, frequency, fillna, value_description):
+    def __init__(self, name, series, train_window_size, test_window_size, window_step, frequency, fillna, value_description):
         """
         Parameters
         ----------
@@ -76,9 +76,23 @@ class TimeSeries:
         self.train_window_size = train_window_size
         self.test_window_size = test_window_size
         self.window = train_window_size + test_window_size
-        self.n_predictions = len(series) - self.window + 1
         self.fillna = fillna
         self.value_description = value_description
+
+        ## calculating n_predictions 
+        self.step = window_step
+        total_step = len(self.series) - (self.train_window_size + self.test_window_size)
+        self.total_step = total_step
+        
+        if int(total_step % window_step) == 0:
+            n_predictions = int(total_step/window_step) + 1
+        else: 
+            n_predictions = floor(total_step/window_step) + 2
+        
+        
+        
+
+        self.n_predictions = n_predictions
     def create_windows(self):
         """
         Creates training and prediction windows from the series.
@@ -92,12 +106,16 @@ class TimeSeries:
         test_windows = np.zeros((self.n_predictions, self.test_window_size))
         predictions = test_windows.copy() # Predictions are the same size as actuals
 
-
+        step_array = []
 
         # Iterate over the series to populate the windows
         for i in range(self.n_predictions):
-            train_windows[i] = self.series[i:i+self.train_window_size]
-            test_windows[i] = self.series[i+self.train_window_size:i + self.train_window_size+self.test_window_size]
+            if (i < self.n_predictions - 1) or (self.total_step % self.step == 0):
+                train_windows[i] = self.series[(i*self.step):(i*self.step)+self.train_window_size]
+                test_windows[i] = self.series[(i*self.step)+self.train_window_size: (i*self.step) + self.train_window_size+self.test_window_size]
+            else: 
+                train_windows[i] = self.series[-(self.train_window_size + self.test_window_size):-self.test_window_size]
+                test_windows[i] = self.series[-self.test_window_size:]
 
         # Save windows as class attributes for easy access
         self.train_windows = train_windows
@@ -430,6 +448,8 @@ class TimeSeries:
         data = dict(
             name=[self.name],
             model=[model],
+            n_predictions=[self.n_predictions],
+            window_step = [self.step],
             frequency=[self.frequency],
             PRICE_TYPE_DESCRIPTION=[PRICE_TYPE_DESCRIPTION],
             train_window_size=[self.train_window_size],

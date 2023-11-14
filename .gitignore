@@ -1,5 +1,7 @@
-closed_datasets
-__pycache__
-.gitignore
-treated_datasets
-new_argus_series.xlxs
+Argus_BaseStocks.xlsx
+argus_clean.csv
+**pycache**
+Generating_Products_Results.py
+Results_Interpretation.py
+**xlsx
+**.csv
