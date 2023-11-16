@@ -1,3 +1,17 @@
+INTRODUCTION:
+
+This project aims to predict future prices of crude oil derivatives.
+Below you can see the structure of the project, respecting good programing practices like files responsabilities, intuitive functions and variables, comments to help users to 
+reproduce the project and an intuitive structure. 
+
+On our dataset we have about 300 series that we want to forecast so we had to make a robust algorithm but generic enough to fit a large number of series and retrive us a optimic 
+performance. 
+
+In this projects we have two outputs:
+
+ 1. Evaluation of the best model in the slidding windows algorithm (it measures the constancy of the model so we have an realiable measure of the model's performance)
+ 2. Forecast with the choosen model for the next 3 months (it's 3 months because we decided it for this specific problem, but changing params we can forecast as much months (or
+any other granularity) as you want. 
 
 PROJECT STRUCTURE
 
